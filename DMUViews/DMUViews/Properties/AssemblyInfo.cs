@@ -8,13 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("DMUViews")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("
-
-            ")]
+[assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("DMUViews")]
-[assembly: AssemblyCopyright("Copyright © 
-
-             2019")]
+[assembly: AssemblyCopyright("Copyright © 2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
