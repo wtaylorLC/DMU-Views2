@@ -7,6 +7,8 @@ namespace DMUViews.Models
 {
     public class Actor
     {
+
+        //hello world
         public int ActorId { get; set; }
         public string FullName { get; set; }
         public string Gender { get; set; }
