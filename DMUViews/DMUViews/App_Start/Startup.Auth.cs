@@ -5,9 +5,9 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
-using DMUViews.Models;
+using DMUVIews.Models;
 
-namespace DMUViews
+namespace DMUVIews
 {
     public partial class Startup
     {

@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("DMUViews")]
+[assembly: AssemblyTitle("DMUVIews")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("DMUViews")]
-[assembly: AssemblyCopyright("Copyright © 2019")]
+[assembly: AssemblyProduct("DMUVIews")]
+[assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("10d2b4ea-9bf8-456d-88f0-9b4badc04288")]
+[assembly: Guid("6e12f829-8506-44d5-af57-5d062b60b319")]
 
 // Version information for an assembly consists of the following four values:
 //

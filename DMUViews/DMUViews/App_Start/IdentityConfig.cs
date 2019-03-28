@@ -10,9 +10,9 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
-using DMUViews.Models;
+using DMUVIews.Models;
 
-namespace DMUViews
+namespace DMUVIews
 {
     public class EmailService : IIdentityMessageService
     {
