@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace DMUVIews.Models.Admin
+namespace DMUVIews.Models
 {
     public class Watchlist
     {
