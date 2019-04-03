@@ -4,17 +4,16 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace DMUVIews.Models
+namespace DMUViews.Models
 {
     public class Filmography
     {
         [Key]
-        public virtual int FilmographyId { get; set; }
-        public virtual int MovieId { get; set; }
-        public virtual int DirectorId { get; set; }
-        public virtual Boolean Writer { get; set; }
-        public virtual Movie Movie { get; set; }
-        public virtual Director Director { get; set; }
-       
+        public int FilmographyId { get; set; }
+        public int MovieId { get; set; }
+        public int DirectorId { get; set; }
+        public Movie Movie { get; set; }
+        public Director Director { get; set; }
+
     }
 }

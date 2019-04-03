@@ -6,9 +6,9 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using DMUVIews.Models;
+using DMUViews.Models;
 
-namespace DMUVIews.Controllers
+namespace DMUViews.Controllers
 {
     [Authorize]
     public class ManageController : Controller

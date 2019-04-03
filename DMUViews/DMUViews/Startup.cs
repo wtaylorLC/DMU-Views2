@@ -1,8 +1,8 @@
 ﻿using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(DMUVIews.Startup))]
-namespace DMUVIews
+[assembly: OwinStartupAttribute(typeof(DMUViews.Startup))]
+namespace DMUViews
 {
     public partial class Startup
     {
