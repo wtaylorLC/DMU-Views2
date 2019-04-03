@@ -2096,7 +2096,6 @@
     <Content Include="Views\Manage\SetPassword.cshtml" />
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
-    <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Views\Actors\Create.cshtml" />
     <Content Include="Views\Actors\Delete.cshtml" />
@@ -2143,6 +2142,7 @@
     <Content Include="Views\Stars\Details.cshtml" />
     <Content Include="Views\Stars\Edit.cshtml" />
     <Content Include="Views\Stars\Index.cshtml" />
+    <Content Include="Views\Shared\_AdminLoginPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

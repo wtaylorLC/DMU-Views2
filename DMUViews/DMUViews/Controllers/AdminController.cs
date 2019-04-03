@@ -134,6 +134,7 @@ namespace DMUViews.Controllers
         }
 
         // GET: Admin/Edit/5
+        
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -195,7 +196,7 @@ namespace DMUViews.Controllers
             MyViewModel.Directors = MyCheckBoxList;
             return View(MyViewModel);
         }
-
+        
         // POST: Admin/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -220,7 +221,10 @@ namespace DMUViews.Controllers
                 var MyMovie = db.Movies.Find(movie.MovieId);
 
                 MyMovie.MovieTitle = movie.MovieTitle;
-                MyMovie.Image = movie.Image;
+                if (movie.Image != null)
+                {
+                    MyMovie.Image = movie.Image;
+                }
                 MyMovie.Description = movie.Description;
                 MyMovie.Genre = movie.Genre;
                 MyMovie.Writer = movie.Writer;
@@ -256,6 +260,17 @@ namespace DMUViews.Controllers
                     if (item.Checked)
                     {
                         db.Filmographies.Add(new Filmography() { MovieId = movie.MovieId, DirectorId= item.Id });
+                    }
+                }
+                //Display Image
+                int id = 0;
+                Movie image = new Movie();
+                using (ApplicationDbContext db = new ApplicationDbContext())
+                {
+                    image = db.Movies.Where(x => x.MovieId == id).FirstOrDefault();
+                    if (image != null)
+                    {
+                        movie.MovieTitle = image.Image;
                     }
                 }
 

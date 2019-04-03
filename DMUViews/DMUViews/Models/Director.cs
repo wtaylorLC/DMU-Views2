@@ -4,23 +4,24 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace DMUVIews.Models
+namespace DMUViews.Models
 {
     public class Director
     {
         [Key]
-        public virtual int DirectorId { get; set; }
+        public int DirectorId { get; set; }
         [Display(Name = "Full Name")]
-        public virtual string FullName { get; set; }
-        public virtual string Gender { get; set; }
-        public virtual string Biography { get; set; }
+        public string FullName { get; set; }
+        public string Gender { get; set; }
+        public string Biography { get; set; }
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Date Of Birth")]
-        public virtual System.DateTime DateOfBirth { get; set; }
-        public virtual string City { get; set; }
-        public virtual string State { get; set; }
-        public virtual string Country { get; set; }
+        public System.DateTime DateOfBirth { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
+        public string Country { get; set; }
         public virtual ICollection<Filmography> Filmographies { get; set; }
+
     }
 }
