@@ -25,7 +25,7 @@ namespace DMUViews.Models
         public virtual ICollection<MovieComment> MovieComments { get; set; }
         public virtual ICollection<Cast> Casts { get; set; }
         public virtual ICollection<Filmography> Filmographies { get; set; }
-        public virtual ICollection<MovieGenres> MovieGenres { get; set; }
+        public virtual ICollection<MovieGenres> Genres { get; set; }
         public IEnumerable<Genre> GenreCollection { set; get; }
         public string[] SelectedIDArray { get; set; }
 
