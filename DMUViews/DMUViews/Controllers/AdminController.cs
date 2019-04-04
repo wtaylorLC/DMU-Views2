@@ -15,11 +15,17 @@ namespace DMUViews.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Movie
-        [Authorize(Roles = "Admin")]
-        public ActionResult Index()
+        // GET: Admin
+        [Authorize(Roles ="Admin")]
+        public ActionResult Index(string search)
         {
+
+            //IEnumerable<Movie> data = db.Database.SqlQuery<Movie>("GetBySearch", param).ToList();
+
+            List<Genre> list = db.Genres.ToList();
+            ViewBag.GenreList = new SelectList(list, "GenreId", "GenreName");
             return View(db.Movies.ToList());
+
         }
 
         // GET: Admin/Details/5
@@ -35,60 +41,21 @@ namespace DMUViews.Controllers
                 return HttpNotFound();
             }
 
-            var ActorsList = from actor in db.Actors
-                             select new
-                             {
-                                 actor.ActorId,
-                                 actor.FullName,
-                                 Checked = ((from anActor in db.Casts
-                                             where (anActor.MovieId == id) & (anActor.ActorId == anActor.ActorId)
-                                             select anActor).Count() > 0)
-
-                             };
-            var DirectorList = from director in db.Directors
-                               select new
-                               {
-                                   director.DirectorId,
-                                   director.FullName,
-                                   Checked = ((from aDirector in db.Filmographies
-                                               where (aDirector.MovieId == id) & (aDirector.DirectorId == aDirector.DirectorId)
-                                               select aDirector).Count() > 0)
-
-                               };
-
-
-            var MyViewModel = new MoviesViewModel();
-
-            MyViewModel.MovieId = id.Value;
-            MyViewModel.MovieTitle = movie.MovieTitle;
-            MyViewModel.Image = movie.Image;
-            MyViewModel.Description = movie.Description;
-            MyViewModel.Genre = movie.Genre;
-            MyViewModel.Writer = movie.Writer;
-            MyViewModel.DateReleased = Convert.ToString(movie.DateReleased);
-
-            var MyCheckBoxList = new List<CheckBoxViewModel>();
-
-            foreach (var item in ActorsList)
-            {
-                MyCheckBoxList.Add(new CheckBoxViewModel { Id = item.ActorId, Name = item.FullName, Checked = item.Checked });
-            }
-
-            foreach (var item in DirectorList)
-            {
-                MyCheckBoxList.Add(new CheckBoxViewModel { Id = item.DirectorId, Name = item.FullName, Checked = item.Checked });
-            }
-
-
-            MyViewModel.Actors = MyCheckBoxList;
-            MyViewModel.Directors = MyCheckBoxList;
-            return View(MyViewModel);
+            return View(movie);
         }
 
         // GET: Admin/Create
         public ActionResult Create()
         {
-            return View();
+            Movie movie = new Movie();
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                //movie.Genres = db.Genres.ToList();
+            }
+            IEnumerable<Genre> list = db.Genres.ToList();
+            ViewBag.GenreList = new SelectList(list, "GenreId", "GenreName");
+            return View(movie);
+
         }
 
         // POST: Admin/Create
@@ -96,7 +63,7 @@ namespace DMUViews.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MovieId,MovieTitle,Image,Description,Genre,Writer,DateReleased")] Movie movie, HttpPostedFileBase file)
+        public ActionResult Create([Bind(Include = "MovieId,MovieTitle,Image,IsPrefferedMovie,Description,DateReleased")] Movie movie, HttpPostedFileBase file)
         {
             string pic = null;
             //Movie newImage = movie;
@@ -108,6 +75,7 @@ namespace DMUViews.Controllers
                 //file is uploaded
                 file.SaveAs(path);
             }
+
             if (ModelState.IsValid)
             {
                 movie.Image = pic;
@@ -123,7 +91,7 @@ namespace DMUViews.Controllers
             Movie image = new Movie();
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
-                image = db.Movies.Where(x => x.MovieId == id).FirstOrDefault();
+               image = db.Movies.Where(x => x.MovieId == id).FirstOrDefault();
                 if (image != null)
                 {
                     movie.MovieTitle = image.Image;
@@ -134,7 +102,6 @@ namespace DMUViews.Controllers
         }
 
         // GET: Admin/Edit/5
-        
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -146,66 +113,18 @@ namespace DMUViews.Controllers
             {
                 return HttpNotFound();
             }
-
-            var ActorsList = from actor in db.Actors
-                          select new
-                          {
-                              actor.ActorId,
-                              actor.FullName,
-                              Checked = ((from anActor in db.Casts
-                                          where (anActor.MovieId == id) & (anActor.ActorId == anActor.ActorId)
-                                          select anActor).Count() > 0)
-
-                          };
-            var DirectorList = from director in db.Directors
-                          select new
-                          {
-                              director.DirectorId,
-                              director.FullName,
-                              Checked = ((from aDirector in db.Filmographies
-                                          where (aDirector.MovieId == id) & (aDirector.DirectorId == aDirector.DirectorId)
-                                          select aDirector).Count() > 0)
-
-                          };
-
-
-            var MyViewModel = new MoviesViewModel();
-
-            MyViewModel.MovieId = id.Value;
-            MyViewModel.MovieTitle = movie.MovieTitle;
-            MyViewModel.Image = movie.Image;
-            MyViewModel.Description = movie.Description;
-            MyViewModel.Genre = movie.Genre;
-            MyViewModel.Writer = movie.Writer;
-            MyViewModel.DateReleased = Convert.ToString(movie.DateReleased);
-
-            var MyCheckBoxList = new List<CheckBoxViewModel>();
-
-            foreach (var item in ActorsList)
-            {
-                MyCheckBoxList.Add(new CheckBoxViewModel { Id = item.ActorId, Name = item.FullName, Checked = item.Checked });
-            }
-
-            foreach (var item in DirectorList)
-            {
-                MyCheckBoxList.Add(new CheckBoxViewModel { Id = item.DirectorId, Name = item.FullName, Checked = item.Checked });
-            }
-
-
-            MyViewModel.Actors = MyCheckBoxList;
-            MyViewModel.Directors = MyCheckBoxList;
-            return View(MyViewModel);
+            return View(movie);
         }
-        
+
         // POST: Admin/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(MoviesViewModel movie, HttpPostedFileBase file)
+        public ActionResult Edit([Bind(Include = "MovieId,MovieTitle,Image,IsPrefferedMovie,Description,DateReleased")] Movie movie, HttpPostedFileBase file)
         {
             string pic = null;
-                        //Movie newImage = movie;
+            //Movie newImage = movie;
             if (file != null)
             {
                 pic = Path.GetFileName(file.FileName);
@@ -214,6 +133,7 @@ namespace DMUViews.Controllers
                 //file is uploaded
                 file.SaveAs(path);
             }
+
             if (ModelState.IsValid)
             {
                 movie.Image = file != null ? pic : movie.Image;
@@ -230,38 +150,8 @@ namespace DMUViews.Controllers
                 MyMovie.Writer = movie.Writer;
                 MyMovie.DateReleased = Convert.ToDateTime(movie.DateReleased);
 
-                foreach (var item in db.Casts)
-                {
-                    if (item.MovieId == movie.MovieId)
-                    {
-                        db.Entry(item).State = System.Data.Entity.EntityState.Deleted;
-                    }
-                }
+                ViewBag.Message = "Movie Uploaded Successfully";
 
-                foreach (var item in movie.Actors)
-                {
-                    if (item.Checked)
-                    {
-                        db.Casts.Add(new Cast() { MovieId = movie.MovieId, ActorId = item.Id });
-                    }
-                }
-
-
-                foreach (var item in db.Filmographies)
-                {
-                    if (item.MovieId == movie.MovieId)
-                    {
-                        db.Entry(item).State = System.Data.Entity.EntityState.Deleted;
-                    }
-                }
-
-                foreach (var item in movie.Directors)
-                {
-                    if (item.Checked)
-                    {
-                        db.Filmographies.Add(new Filmography() { MovieId = movie.MovieId, DirectorId= item.Id });
-                    }
-                }
                 //Display Image
                 int id = 0;
                 Movie image = new Movie();
@@ -273,10 +163,11 @@ namespace DMUViews.Controllers
                         movie.MovieTitle = image.Image;
                     }
                 }
-
                 db.SaveChanges();
                 return RedirectToAction("Index");
+
             }
+
             return View(movie);
         }
 
@@ -313,6 +204,22 @@ namespace DMUViews.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        [HttpGet]
+        public ActionResult GetImage(int id)
+        {
+            //Display Image
+            Movie movie = new Movie();
+            Movie image = new Movie();
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                image = db.Movies.Where(x => x.MovieId == id).FirstOrDefault();
+                if (image != null)
+                {
+                    movie.MovieTitle = image.Image;
+                }
+            }
+            return View(movie);
         }
     }
 }

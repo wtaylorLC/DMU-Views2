@@ -1,4 +1,6 @@
-﻿@model DMUViews.Models.MoviesViewModel
+﻿@using DMUViews.CustomHtmlHelpers;
+
+@model DMUViews.Models.Movie
 
 @{
     ViewBag.Title = "Details";
@@ -20,7 +22,7 @@
         </dd>
 
         <dt>
-            <img style="width:150px; height:150px" src="@Url.Content("~/ImageVideoFiles/" +Model.Image)" />
+            <img style="width:150px; height:150px" src="@Url.Content("~/ImageVideoFiles/" +Model.Image)"/>
 
         </dt>
 
@@ -52,7 +54,6 @@
             @Html.DisplayFor(model => model.Writer)
         </dd>
 
-
         <dt>
             @Html.DisplayNameFor(model => model.DateReleased)
         </dt>
@@ -61,30 +62,6 @@
             @Html.DisplayFor(model => model.DateReleased)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Actors)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Actors)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Directors)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Directors)
-        </dd>
-        <dd>
-            @foreach (var item in Model.Actors)
-            {
-                if (item.Checked)
-                {
-                    <div>@item.Name</div>
-                }
-            }
-        </dd>
     </dl>
 </div>
 <p>

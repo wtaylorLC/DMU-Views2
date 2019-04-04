@@ -25,7 +25,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Image)
+            <img style="width:150px; height:150px" src="@Url.Content("~/ImageVideoFiles/" +Model.Image)" />
         </dd>
 
         <dt>
@@ -45,35 +45,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Director)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Director)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.Writer)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Writer)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Star)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Star)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FullCast)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FullCast)
         </dd>
 
         <dt>
