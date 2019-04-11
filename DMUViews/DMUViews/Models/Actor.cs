@@ -10,6 +10,7 @@ namespace DMUViews.Models
     {
         [Key]
         public int ActorId { get; set; }
+        [Required(ErrorMessage = "You must enter the Actor's name.")]
         [Display(Name = "Full Name")]
         public string ActorName { get; set; }
         public string Gender { get; set; }

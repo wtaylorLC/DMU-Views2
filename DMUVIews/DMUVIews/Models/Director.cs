@@ -11,6 +11,7 @@ namespace DMUViews.Models
         [Key]
         public int DirectorId { get; set; }
         [Display(Name = "Full Name")]
+        [Required(ErrorMessage = "You must enter the Director's name.")]
         public string DirectorName { get; set; }
         public string Gender { get; set; }
         public string Biography { get; set; }

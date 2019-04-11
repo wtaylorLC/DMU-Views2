@@ -36,6 +36,7 @@ namespace DMUViews.Controllers
             return View(db.Movies.Where(x=>x.MovieTitle.Contains(searching) || searching == null).ToList());
         }
 
+
         //public JsonResult SendRating(string r, string s, string id, string url)
         //{
         //    int autoId = 0;

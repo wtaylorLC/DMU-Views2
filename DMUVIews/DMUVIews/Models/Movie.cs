@@ -11,6 +11,7 @@ namespace DMUViews.Models
         [Key]
         public int MovieId { get; set; }
         [Display(Name = "Movie Title")]
+        [Required(ErrorMessage = "You must enter the Movie Title.")]
         public string MovieTitle { get; set; }
         public string Image { get; set; }
         public string Description { get; set; }

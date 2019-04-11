@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Migrations;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -252,7 +253,7 @@ namespace DMUViews.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MovieId,MovieTitle,Image,Description,DateReleased")]Movie movie, int? id,HttpPostedFileBase file, string[] selectedGenres, string[] selectedActors, string[] selectedDirectors)
+        public ActionResult Edit(int? id,HttpPostedFileBase file, string[] selectedGenres, string[] selectedActors, string[] selectedDirectors, Movie movie)
         {
             string pic = null;
             //Movie newImage = movie;
@@ -265,37 +266,36 @@ namespace DMUViews.Controllers
                 file.SaveAs(path);
             }
 
-            //if (ModelState.IsValid)
-            //{
-            //    movie.Image = file != null ? pic : movie.Image;
+            if (ModelState.IsValid)
+            {
+                movie.Image = file != null ? pic : movie.Image;
 
-            //    var MyMovie = db.Movies.Find(movie.MovieId);
+                var MyMovie = db.Movies.Find(movie.MovieId);
 
-            //    MyMovie.MovieTitle = movie.MovieTitle;
-            //    if (movie.Image != null)
-            //    {
-            //        MyMovie.Image = movie.Image;
-            //    }
-            //    MyMovie.Description = movie.Description;
-            //    MyMovie.Actors = movie.Actors;
-            //    MyMovie.Directors = movie.Directors;
-            //    MyMovie.DateReleased = Convert.ToDateTime(movie.DateReleased);
+                MyMovie.MovieTitle = movie.MovieTitle;
+                if (movie.Image != null)
+                {
+                    MyMovie.Image = movie.Image;
+                }
+                MyMovie.Description = movie.Description;
+                MyMovie.Actors = movie.Actors;
+                MyMovie.Directors = movie.Directors;
+                MyMovie.DateReleased = Convert.ToDateTime(movie.DateReleased);
 
 
-            //    //Display Image
-            //    Movie image = new Movie();
-            //    using (ApplicationDbContext db = new ApplicationDbContext())
-            //    {
-            //        image = db.Movies.Where(x => x.MovieId == id).FirstOrDefault();
-            //        if (image != null)
-            //        {
-            //            movie.MovieTitle = image.Image;
-            //        }
-            //    }
-            //    db.SaveChanges();
-            //    return RedirectToAction("Index");
-
-            //}
+                //Display Image
+                Movie image = new Movie();
+                using (ApplicationDbContext db = new ApplicationDbContext())
+                {
+                    image = db.Movies.Where(x => x.MovieId == id).FirstOrDefault();
+                    if (image != null)
+                    {
+                        movie.MovieTitle = image.Image;
+                    }
+                }
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
 
             if (id == null)
             {
@@ -309,31 +309,15 @@ namespace DMUViews.Controllers
                 .Where(i => i.MovieId == id)
                 .Single();
 
-            movieToUpdate.MovieTitle = movie.MovieTitle;
-            if (movie.Image != null)
-            {
-                movieToUpdate.Image = movie.Image;
-            }
-            movieToUpdate.Description = movie.Description;
-            movieToUpdate.Actors = movie.Actors;
-            movieToUpdate.Directors = movie.Directors;
-            movieToUpdate.DateReleased = Convert.ToDateTime(movie.DateReleased);
-
-
-            //Display Image
-            Movie image = new Movie();
-            using (ApplicationDbContext db = new ApplicationDbContext())
-            {
-                image = db.Movies.Where(x => x.MovieId == id).FirstOrDefault();
-                if (image != null)
-                {
-                    movie.MovieTitle = image.Image;
-                }
-            }
-
             if (TryUpdateModel(movieToUpdate, "",
-                   new string[] { "MovieId", "MovieTitle", "Image", "Description", "DateReleased" }))
+                   new string[] { "MovieId", "MovieTitle","Image", "Description", "DateReleased" }))
             {
+                if (file == null)
+                {
+                    Movie thisMovie = db.Movies.Where(m => m.MovieId == movie.MovieId).FirstOrDefault();
+                    movie.Image = thisMovie.Image;
+                }
+
                 try
                 {
                     UpdateMovieGenres(selectedGenres, movieToUpdate);
@@ -343,8 +327,8 @@ namespace DMUViews.Controllers
 
                     db.Entry(movieToUpdate).State = EntityState.Modified;
                     db.SaveChanges();
-
                     return RedirectToAction("Index");
+
                 }
                 catch (RetryLimitExceededException /* dex */)
                 {
@@ -357,6 +341,27 @@ namespace DMUViews.Controllers
             PopulateAssignedActorData(movieToUpdate);
             PopulateAssignedDirectorData(movieToUpdate);
             return View(movieToUpdate);
+
+
+            //movieToUpdate.MovieTitle = movie.MovieTitle;
+            //if (movie.Image != null)
+            //{
+            //    movieToUpdate.Image = movie.Image;
+            //}
+            //movieToUpdate.Description = movie.Description;
+            //movieToUpdate.DateReleased = Convert.ToDateTime(movie.DateReleased);
+
+
+            ////Display Image
+            //Movie image = new Movie();
+            //using (ApplicationDbContext db = new ApplicationDbContext())
+            //{
+            //    image = db.Movies.Where(x => x.MovieId == id).FirstOrDefault();
+            //    if (image != null)
+            //    {
+            //        movie.MovieTitle = image.Image;
+            //    }
+            //}
         }
 
         private void UpdateMovieDirectors(string[] selectedDirectors, Movie movieToUpdate)

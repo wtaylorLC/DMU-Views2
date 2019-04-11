@@ -198,6 +198,10 @@
     <Compile Include="Migrations\201904111932201_updateActorDirectorClass.Designer.cs">
       <DependentUpon>201904111932201_updateActorDirectorClass.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904111947582_validationOfKeyAttributes.cs" />
+    <Compile Include="Migrations\201904111947582_validationOfKeyAttributes.Designer.cs">
+      <DependentUpon>201904111947582_validationOfKeyAttributes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Actor.cs" />
@@ -2079,11 +2083,7 @@
     <Content Include="Views\Role\Edit.cshtml" />
     <Content Include="Views\Role\Details.cshtml" />
     <Content Include="Views\Role\Delete.cshtml" />
-    <Content Include="Views\Movies\Create.cshtml" />
-    <Content Include="Views\Movies\Delete.cshtml" />
     <Content Include="Views\Movies\Details.cshtml" />
-    <Content Include="Views\Movies\Edit.cshtml" />
-    <Content Include="Views\Movies\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2113,6 +2113,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904111932201_updateActorDirectorClass.resx">
       <DependentUpon>201904111932201_updateActorDirectorClass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904111947582_validationOfKeyAttributes.resx">
+      <DependentUpon>201904111947582_validationOfKeyAttributes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
