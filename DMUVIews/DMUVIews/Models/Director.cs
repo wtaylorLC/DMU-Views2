@@ -11,7 +11,7 @@ namespace DMUViews.Models
         [Key]
         public int DirectorId { get; set; }
         [Display(Name = "Full Name")]
-        public string FullName { get; set; }
+        public string DirectorName { get; set; }
         public string Gender { get; set; }
         public string Biography { get; set; }
         [DataType(DataType.Date)]
@@ -21,7 +21,7 @@ namespace DMUViews.Models
         public string City { get; set; }
         public string State { get; set; }
         public string Country { get; set; }
-        public virtual ICollection<Filmography> Filmographies { get; set; }
+        public virtual ICollection<Movie> Movies { get; set; }
 
     }
 }

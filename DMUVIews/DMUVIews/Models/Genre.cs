@@ -14,7 +14,7 @@ namespace DMUViews.Models
         public string GenreName { get; set; }
         public Boolean IsActive { get; set; }
         public Boolean IsDelete { get; set; }
-        public virtual ICollection<MovieGenres> MovieGenres { get; set; }
+        public virtual ICollection<Movie> Movies { get; set; }
 
     }
 }

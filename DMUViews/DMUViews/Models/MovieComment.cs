@@ -14,13 +14,16 @@ namespace DMUViews.Models
         public string UserId { get; set; }
         public string Comment { get; set; }
         [Range(1, 10)]
-        public float Rating { get; set; }
+        public decimal Rank { get; set; }
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Comment Date")]
         public System.DateTime CommentDate { get; set; }
 
+        public int PostId { get; set; }
+        public virtual Post Post { get; set; }
         public virtual Movie Movie { get; set; }
         public virtual ApplicationUser User { get; set; }
+
     }
 }
