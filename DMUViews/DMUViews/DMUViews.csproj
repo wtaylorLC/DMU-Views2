@@ -194,6 +194,10 @@
     <Compile Include="Migrations\201904101759203_role.Designer.cs">
       <DependentUpon>201904101759203_role.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904111932201_updateActorDirectorClass.cs" />
+    <Compile Include="Migrations\201904111932201_updateActorDirectorClass.Designer.cs">
+      <DependentUpon>201904111932201_updateActorDirectorClass.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Actor.cs" />
@@ -2106,6 +2110,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904101759203_role.resx">
       <DependentUpon>201904101759203_role.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904111932201_updateActorDirectorClass.resx">
+      <DependentUpon>201904111932201_updateActorDirectorClass.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

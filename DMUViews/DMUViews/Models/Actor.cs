@@ -18,9 +18,6 @@ namespace DMUViews.Models
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Date Of Birth")]
         public System.DateTime DateOfBirth { get; set; }
-        public string City { get; set; }
-        public string State { get; set; }
-        public string Country { get; set; }
         public virtual ICollection<Movie> Movies { get; set; }
 
     }
