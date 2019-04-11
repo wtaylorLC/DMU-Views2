@@ -46,7 +46,7 @@ namespace DMUViews.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MovieId,MovieTitle,Image,Description,Genre,Director,Writer,Star,FullCast,DateReleased")] Movie movie)
+        public ActionResult Create([Bind(Include = "MovieId,MovieTitle,Image,Description,DateReleased")] Movie movie)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +78,7 @@ namespace DMUViews.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MovieId,MovieTitle,Image,Description,Genre,Director,Writer,Star,FullCast,DateReleased")] Movie movie)
+        public ActionResult Edit([Bind(Include = "MovieId,MovieTitle,Image,Description,DateReleased")] Movie movie)
         {
             if (ModelState.IsValid)
             {

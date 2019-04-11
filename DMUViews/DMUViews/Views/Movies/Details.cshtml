@@ -49,9 +49,27 @@
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
                 <small class="text-muted">Posted by Anonymous on 3/1/17</small>
                 <hr>
-                <a href="#" class="btn btn-success">Leave a Review</a>
+
+                <form id="MovieRatingControl">
+                    <input type="hidden" name="MovieId" value="23" />
+                    <input type="hidden" name="RecordId" value="@Model.MovieId" />
+
+                    <div class="form-group">
+                        @*<label>Write Your Comment</label>
+                        @{
+                            Html.RenderAction("MovieRatingsControl", "MovieComments", new { movieId = Model.MovieId });
+                        }*@
+                        <span>
+                            <i class="fas fa-star" id="Rank" name="Rank" value=""></i>
+                        </span>
+                        <textarea class="form-control" id="" rows="3" name="Comment" placeholder="Write your comment here"></textarea>
+                    </div>
+                </form>
+                <button value="submit" type="submit" href="#" class="btn btn-success">Leave a Review</button>
+
             </div>
         </div>
+
         <!-- /.card -->
 
     </div>
@@ -62,3 +80,30 @@
     @Html.ActionLink("Edit", "Edit", new { id = Model.MovieId }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+
+        function SetRatingControlCallBacks(e) {
+            var rank = $("#MovieRatingsControl a[name='Rank']");
+            rank.on('click', SetRating);
+        }
+
+        function SetRating(e) {
+            var data = { movieId: $(this).data("movieId"), rank: $(this).data("rank") };
+
+            $.post("@Url.Action("SetRating", "Ratings")", data)
+
+                .done(funtion(response, status, jqxhr).js, {
+                    var url = "@Url.Action("MovieRatingsControl", "Ratings")";
+                    js: ("MovieRatingsControl").load(url, { movieId: data.movieId },
+                          function (responseText, statusText)
+                })
+
+                js.fail(function (jqxhr, status, error) {
+            })
+        }
+
+        $(document).ready(SetRatingControlCallBacks);
+    </script>
+}

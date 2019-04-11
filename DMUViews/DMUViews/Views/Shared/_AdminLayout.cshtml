@@ -7,7 +7,6 @@
     <!-- Bootstrap core CSS -->
     @Styles.Render("~/AdminStyleSheet/css")
     @Scripts.Render("~/bundles/modernizr")
-    <link href="~/AdminStyleSheet/js/Chosen/chosen.min.css" rel="stylesheet" />
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -25,7 +24,7 @@
 
     <!-- Custom styles for this template-->
     <link href="~/AdminStyleSheet/css/sb-admin.css" rel="stylesheet" />
-   
+
 </head>
 <body id="page-top">
 
@@ -83,8 +82,9 @@
                     <a class="dropdown-item" href="#">Settings</a>
                     <a class="dropdown-item" href="#">Activity Log</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
+                    <a class="dropdown-item" href="~/Views/Shared/_LoginPartial.cshtml" data-toggle="modal" data-target="#logoutModal">Logout</a>
                 </div>
+                @Html.Partial("_AdminLoginPartial")
             </li>
         </ul>
 
@@ -372,10 +372,8 @@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </script>
-<link href="~/AdminStyleSheet/Chosen/chosen.min.css" rel="stylesheet" />
 <!-- Bootstrap core JavaScript
 ================================================== -->
-
 <!-- Bootstrap core JavaScript-->
 <script src="~/AdminStyleSheet/vendor/jquery/jquery.min.js"></script>
 <script src="~/AdminStyleSheet/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

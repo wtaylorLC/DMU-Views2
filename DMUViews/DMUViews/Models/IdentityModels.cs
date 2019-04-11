@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -17,18 +16,15 @@ namespace DMUViews.Models
             // Add custom user claims here
             return userIdentity;
         }
-        public virtual ICollection<MovieComment> MovieComments { get; set; }
     }
     public class ApplicationRole : IdentityRole
     {
-        public ApplicationRole(): base() { }
+        public ApplicationRole() : base() { }
         public ApplicationRole(string roleName) : base(roleName) { }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        internal readonly IEnumerable ApplicationUsers;
-
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
@@ -47,11 +43,8 @@ namespace DMUViews.Models
         public System.Data.Entity.DbSet<DMUViews.Models.Director> Directors { get; set; }
 
         public System.Data.Entity.DbSet<DMUViews.Models.MovieComment> MovieComments { get; set; }
+        public System.Data.Entity.DbSet<DMUViews.Models.Post> Posts { get; set; }
+        public System.Data.Entity.DbSet<DMUViews.Models.SubComment> SubComments { get; set; }
 
-        public System.Data.Entity.DbSet<DMUViews.Models.WatchList> WatchLists { get; set; }
-
-        public System.Data.Entity.DbSet<DMUViews.Models.Cast> Casts { get; set; }
-        public System.Data.Entity.DbSet<DMUViews.Models.Filmography> Filmographies { get; set; }
-        public System.Data.Entity.DbSet<DMUViews.Models.MovieGenres> MovieGenres { get; set; }
     }
 }

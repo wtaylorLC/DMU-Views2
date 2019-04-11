@@ -37,27 +37,54 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Genre)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Genre)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Writer)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Writer)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.DateReleased)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.DateReleased)
+        </dd>
+
+
+
+        <dt>
+            <label>Genres</label>
+        </dt>
+
+        <dd>
+            @{
+                foreach (var genre in Model.Genres)
+                {
+                    @:  @genre.GenreName <br />
+                }
+            }
+        </dd>
+
+
+        <dt>
+            <label>Cast</label>
+        </dt>
+
+        <dd>
+            @{
+                foreach (var actor in Model.Actors)
+                {
+                    @:  @actor.ActorName <br />
+                }
+            }
+        </dd>
+
+
+        <dt>
+            <label>Directors</label>
+        </dt>
+
+        <dd>
+            @{
+                foreach (var director in Model.Directors)
+                {
+                    @:  @director.DirectorName <br />
+                }
+            }
         </dd>
 
     </dl>

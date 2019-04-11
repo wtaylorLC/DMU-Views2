@@ -22,13 +22,16 @@
             @Html.DisplayNameFor(model => model.Description)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Genre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Writer)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.DateReleased)
+        </th>
+        <th>
+            Genres
+        </th>
+        <th>
+            Actors
+        </th>
+        <th>
+            Directors
         </th>
         <th></th>
     </tr>
@@ -45,24 +48,43 @@
                     <img style="width:150px; height:150px" src="@Url.Content("~/ImageVideoFiles/" +@item.Image)" />
                 }
             </div>
-
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Description)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Genre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Writer)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.DateReleased)
         </td>
+
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.MovieId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.MovieId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.MovieId })
+            @{
+                foreach (var genre in item.Genres)
+                {
+                    @:  @genre.GenreName <br />
+                }
+            }
+        </td>
+        <td>
+            @{
+                foreach (var actor in item.Actors)
+                {
+                    @:  @actor.ActorName <br />
+                }
+            }
+        </td>
+        <td>
+            @{
+                foreach (var director in item.Directors)
+                {
+                    @:  @director.DirectorName <br />
+                }
+            }
+        </td>
+
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.MovieId }) |
+            @Html.ActionLink("Details", "Details", new { id = item.MovieId }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.MovieId })
         </td>
     </tr>
 }

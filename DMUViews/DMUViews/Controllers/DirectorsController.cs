@@ -46,7 +46,7 @@ namespace DMUViews.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "DirectorId,FullName,Gender,Biography,DateOfBirth,City,State,Country")] Director director)
+        public ActionResult Create([Bind(Include = "DirectorId,DirectorName,Gender,Biography,DateOfBirth,City,State,Country")] Director director)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +78,7 @@ namespace DMUViews.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "DirectorId,FullName,Gender,Biography,DateOfBirth,City,State,Country")] Director director)
+        public ActionResult Edit([Bind(Include = "DirectorId,DirectorName,Gender,Biography,DateOfBirth,City,State,Country")] Director director)
         {
             if (ModelState.IsValid)
             {

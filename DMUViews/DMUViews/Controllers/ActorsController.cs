@@ -46,7 +46,7 @@ namespace DMUViews.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ActorId,FullName,Gender,Biography,DateOfBirth,City,State,Country")] Actor actor)
+        public ActionResult Create([Bind(Include = "ActorId,ActorName,Gender,Biography,DateOfBirth,City,State,Country")] Actor actor)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +78,7 @@ namespace DMUViews.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ActorId,FullName,Gender,Biography,DateOfBirth,City,State,Country")] Actor actor)
+        public ActionResult Edit([Bind(Include = "ActorId,ActorName,Gender,Biography,DateOfBirth,City,State,Country")] Actor actor)
         {
             if (ModelState.IsValid)
             {

@@ -9,9 +9,9 @@ namespace DMUViews.Models
     public class Actor
     {
         [Key]
-        public  int ActorId { get; set; }
+        public int ActorId { get; set; }
         [Display(Name = "Full Name")]
-        public string FullName { get; set; }
+        public string ActorName { get; set; }
         public string Gender { get; set; }
         public string Biography { get; set; }
         [DataType(DataType.Date)]
@@ -21,6 +21,7 @@ namespace DMUViews.Models
         public string City { get; set; }
         public string State { get; set; }
         public string Country { get; set; }
-        public virtual ICollection<Cast> Casts { get; set; }
+        public virtual ICollection<Movie> Movies { get; set; }
+
     }
 }

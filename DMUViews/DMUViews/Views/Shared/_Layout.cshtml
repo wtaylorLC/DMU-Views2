@@ -11,10 +11,10 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
-      <!-- Bootstrap core CSS -->
-  <link href="~/Content/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-  <!-- Custom styles for this template -->
-  <link href="~/Content/css/shop-homepage.css" rel="stylesheet" />
+    <!-- Bootstrap core CSS -->
+    <link href="~/Content/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <link href="~/Content/css/shop-homepage.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -48,21 +48,30 @@
                 </ul>
                 @Html.Partial("_LoginPartial")
 
-                <!-- Search Widget -->
-                <div class="">
-                    <div class="card-body">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search for...">
-                            <span class="input-group-btn">
-                                <button class="btn btn-warning" type="button">Go!</button>
-                            </span>
-                        </div>
-                    </div>
-                </div>
+
+
+                <br /><br />
+                @using (Html.BeginForm("Search", "Home", FormMethod.Get))
+                {
+                    <!-- Search Widget -->
+                    @*<div class="">
+                            <div class="card-body">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Search for...">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-warning" type="button" href="../Home/Search">Go!</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>*@
+
+                    @Html.TextBox("searching")<input type="submit" height="200" value="GO!" class="btn btn-warning" id="myButton" onclick="myFunction()" />
+
+                }
+
             </div>
         </div>
     </nav>
-
 
     <!-- Page Content -->
     <div class="container">
@@ -77,11 +86,16 @@
         <!-- /.container -->
     </footer>
     <!-- Bootstrap core JavaScript -->
-    <script src="~/Content/vendor/jquery/jquery.min.js"></script>
-    <script src="~/Content/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    @*<script src="~/Content/vendor/jquery/jquery.min.js"></script>
+        <script src="~/Content/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>*@
     <!-- Bootstrap core JavaScript -->
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    <script type="text/javascript">
+        document.getElementById("myButton").onclick = function myFunction() {
+            location.href = "../Movies/Details";
+        };
+    </script>
     @RenderSection("scripts", required: false)
 
 </body>
