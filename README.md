@@ -11,6 +11,8 @@ The admin also has access to the movie tweeter feeds as they can change the feed
 
 [DMUViews Storyboard.pdf](https://github.com/wtaylorLC/DMU-Views2/files/3073886/DMUViews.Storyboard.pdf) 
 
+[ERD and Class Diagram.pdf](https://github.com/wtaylorLC/DMU-Views2/files/3073903/ERD.and.Class.Diagram.pdf)
+
 
 
  
