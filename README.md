@@ -9,9 +9,7 @@ The admin can now use the dashboard function will display movie title, image, de
 The admin also has access to the movie tweeter feeds as they can change the feeds and upload new movie contains and this will enable the user to be able to view movie news that are coming out or already out. 
 
 
-[DMUViews Storyboard.pdf](https://github.com/wtaylorLC/DMU-Views2/files/3073886/DMUViews.Storyboard.pdf) 
 
-[ERD and Class Diagram.pdf](https://github.com/wtaylorLC/DMU-Views2/files/3073903/ERD.and.Class.Diagram.pdf)
 
 
 
