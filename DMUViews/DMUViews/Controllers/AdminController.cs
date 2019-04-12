@@ -25,34 +25,6 @@ namespace DMUViews.Controllers
             return View(db.Movies.ToList());
         }
 
-
-        //public PartialViewResult GenreListPartial(int? page, int? genre)
-        //{
-        //    var movie = new Movie();
-        //    movie.Genres = new List<Genre>();
-        //    movie.Actors = new List<Actor>();
-        //    movie.Directors = new List<Director>();
-        //    //PopulateAssignedGenreData(movie);
-        //    //PopulateAssignedActorData(movie);
-        //    //PopulateAssignedDirectorData(movie);
-
-        //    var pageNumber = page ?? 1;
-        //    var pageSize = 10;
-        //    if (genre != null)
-        //    {
-        //        var movieList = db.Movies
-        //                        .OrderByDescending(m => m.MovieId)
-        //                        .Where(m => m.Genres == Genre)
-        //                        .ToPagedList(pageNumber, pageSize);
-        //        return PartialView(movieList);
-        //    }
-        //    else
-        //    {
-        //        var movieList = db.Movies.OrderByDescending(m => m.MovieId).ToPagedList(pageNumber, pageSize);
-        //        return PartialView(movieList);
-        //    }
-        //}
-
         // GET: Movie/Details/5
         public ActionResult Details(int? id)
         {
@@ -281,7 +253,7 @@ namespace DMUViews.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MovieId,MovieTitle,Image,Description,DateReleased")] Movie movie, HttpPostedFileBase file, string[] selectedGenres, string[] selectedActors, string[] selectedDirectors,  int? id)
+        public ActionResult Edit(int? id,HttpPostedFileBase file, string[] selectedGenres, string[] selectedActors, string[] selectedDirectors, Movie movie)
         {
             string pic = null;
             //Movie newImage = movie;
@@ -292,15 +264,6 @@ namespace DMUViews.Controllers
 
                 //file is uploaded
                 file.SaveAs(path);
-            }
-
-
-            if (ModelState.IsValid)
-            {
-                movie.Image = pic;
-                db.Movies.Add(movie);
-                db.SaveChanges();
-                return RedirectToAction("Index");
             }
 
             if (ModelState.IsValid)
@@ -315,21 +278,12 @@ namespace DMUViews.Controllers
                     MyMovie.Image = movie.Image;
                 }
                 MyMovie.Description = movie.Description;
-
-                MyMovie.DateReleased = Convert.ToDateTime(movie.DateReleased);
-                MyMovie.Genres = movie.Genres;
                 MyMovie.Actors = movie.Actors;
                 MyMovie.Directors = movie.Directors;
+                MyMovie.DateReleased = Convert.ToDateTime(movie.DateReleased);
 
-                UpdateMovieGenres(selectedGenres, MyMovie);
-                UpdateMovieActors(selectedActors, MyMovie);
-                UpdateMovieDirectors(selectedDirectors, MyMovie);
-
-                db.Movies.Add(movie);
-                db.SaveChanges();
 
                 //Display Image
-                //int id = 0;
                 Movie image = new Movie();
                 using (ApplicationDbContext db = new ApplicationDbContext())
                 {
@@ -341,56 +295,52 @@ namespace DMUViews.Controllers
                 }
                 db.SaveChanges();
                 return RedirectToAction("Index");
-
             }
 
-            return View(movie);
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var movieToUpdate = db.Movies
+                .Include(m => m.Genres)
+                .Include(m => m.Actors)
+                .Include(m => m.Directors)
+                .Where(i => i.MovieId == id)
+                .Single();
+
+            if (TryUpdateModel(movieToUpdate, "",
+                   new string[] { "MovieId", "MovieTitle","Image", "Description", "DateReleased" }))
+            {
+                if (file == null)
+                {
+                    Movie thisMovie = db.Movies.Where(m => m.MovieId == movie.MovieId).FirstOrDefault();
+                    movie.Image = thisMovie.Image;
+                }
+
+                try
+                {
+                    UpdateMovieGenres(selectedGenres, movieToUpdate);
+                    UpdateMovieActors(selectedActors, movieToUpdate);
+                    UpdateMovieDirectors(selectedDirectors, movieToUpdate);
 
 
-            //if (id == null)
-            //{
-            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            //}
+                    db.Entry(movieToUpdate).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
 
-            //var movieToUpdate = db.Movies
-            //    .Include(m => m.Genres)
-            //    .Include(m => m.Actors)
-            //    .Include(m => m.Directors)
-            //    .Where(i => i.MovieId == id)
-            //    .Single();
+                }
+                catch (RetryLimitExceededException /* dex */)
+                {
+                    //Log the error (uncomment dex variable name and add a line here to write a log.
+                    ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+                }
+            }
 
-            //if (TryUpdateModel(movieToUpdate, "",
-            //       new string[] { "MovieId", "MovieTitle","Image", "Description", "DateReleased" }))
-            //{
-            //    //if (file == null)
-            //    //{
-            //    //    Movie thisMovie = db.Movies.Where(m => m.MovieId == movie.MovieId).FirstOrDefault();
-            //    //    movie.Image = thisMovie.Image;
-            //    //}
-
-            //    try
-            //    {
-            //        UpdateMovieGenres(selectedGenres, movieToUpdate);
-            //        UpdateMovieActors(selectedActors, movieToUpdate);
-            //        UpdateMovieDirectors(selectedDirectors, movieToUpdate);
-
-            //        db.Entry(movieToUpdate).State = EntityState.Modified;
-            //        db.SaveChanges();
-
-            //        return RedirectToAction("Index");
-
-            //    }
-            //    catch (RetryLimitExceededException /* dex */)
-            //    {
-            //        //Log the error (uncomment dex variable name and add a line here to write a log.
-            //        ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
-            //    }
-            //}
-
-            //PopulateAssignedGenreData(movieToUpdate);
-            //PopulateAssignedActorData(movieToUpdate);
-            //PopulateAssignedDirectorData(movieToUpdate);
-            //return View(movieToUpdate);
+            PopulateAssignedGenreData(movieToUpdate);
+            PopulateAssignedActorData(movieToUpdate);
+            PopulateAssignedDirectorData(movieToUpdate);
+            return View(movieToUpdate);
 
 
             //movieToUpdate.MovieTitle = movie.MovieTitle;

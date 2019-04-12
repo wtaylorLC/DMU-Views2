@@ -27,12 +27,6 @@ namespace DMUViews
                       "~/Content/site.css"));
             bundles.Add(new ScriptBundle("~/bundles/multisel").Include(
             "~/Scripts/multisel.js"));
-
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-            "~/Content/font-awesome/css/all.css",
-            "~/Content/bootstrap.css",
-            "~/lib/rateYo/jquery.rateyo.min.css",
-            "~/Content/Site.css"));
         }
     }
 }

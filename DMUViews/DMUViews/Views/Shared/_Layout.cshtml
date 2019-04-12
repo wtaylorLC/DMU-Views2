@@ -34,6 +34,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("About", "Home")">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Services</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="@Url.Action("Contact", "Home")">Contact</a>
                     </li>
 
@@ -42,7 +48,7 @@
                         if (User.IsInRole("Admin"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link" href="@Url.Action("Index", "Admin")">Dashboard</a>
+                                <a class="nav-link" href="@Url.Action("Index", "Admin")">Admin Dashboard</a>
                             </li>
                         }
                     }
@@ -84,7 +90,7 @@
     <!-- Footer -->
     <footer class="py-5 bg-dark">
         <div class="container">
-            <p class="m-0 text-center text-white">Copyright &copy; DMUViews 2019</p>
+            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
         </div>
         <!-- /.container -->
     </footer>
