@@ -29,6 +29,33 @@
             <div class="card-body">
                 <h3 class="card-title">@Model.MovieTitle</h3>
                 <p class="card-text">@Model.Description</p>
+                <p>
+                    Genres:
+                    @{
+                        foreach (var genre in Model.Genres)
+                        {
+                            <a href="@Url.Action()">@genre.GenreName</a>
+                        }
+                    }
+                </p>
+                <p>
+                    Actors:
+                    @{
+                        foreach (var actor in Model.Actors)
+                        {
+                           <a href="@Url.Action()">@actor.ActorName</a>
+                        }
+                    }
+                </p>
+                <p>
+                    Directors:
+                    @{
+                        foreach (var director in Model.Directors)
+                        {
+                           <a href="@Url.Action()">@director.DirectorName</a>
+                        }
+                    }
+                </p>
                 <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9733; &#9733; &#9733; &#9733; &#9733; &#9734;</span>
                 10.0 stars
             </div>
