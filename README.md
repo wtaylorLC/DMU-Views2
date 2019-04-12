@@ -1,6 +1,6 @@
 # DMUViews (Film review)
 
-At the home page the user can either be a user or an admin for the website, which both will have different accessability. The log in for the users will be different to an admin as a user can only view movies and write a review, whereas an admin can do everything in the system from adding movies to editing movies. 
+At the home page the user can either be a user or an admin for the website, where both will have different accessabilities. The log in for the users will be different to an admin as a user can only view movies and write a review, whereas an admin can do everything in the system from adding movies to editing movies. 
 
 The system will have different access on the dashboard (admin use only) and if a user would log in they would see the page without the dashboard function so basically view the page only. 
 
